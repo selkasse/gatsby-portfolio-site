@@ -1,4 +1,5 @@
 import React from "react"
+import { Link, graphql } from "gatsby"
 import Layout from "../components/layout"
 
 export const query = graphql`
@@ -24,9 +25,11 @@ export default function Blog({ data }) {
       <ul>
         {data.allSanityPost.edges.map(({ node: post }) => (
           <li key={post.slug.current}>
-            <h2>{post.title}</h2>
+            <Link to={post.slug.current}>
+              <h2>{post.title}</h2>
 
-            <p>{post._rawExcerpt[0].children[0].text}</p>
+              <p>{post._rawExcerpt[0].children[0].text}</p>
+            </Link>
           </li>
         ))}
       </ul>
