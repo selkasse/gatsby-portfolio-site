@@ -7,6 +7,7 @@ exports.createPages = async ({ graphql, actions }) => {
       allSanityPost {
         edges {
           node {
+            id
             title
             slug {
               current
@@ -28,7 +29,7 @@ exports.createPages = async ({ graphql, actions }) => {
     createPage({
       path,
       component: require.resolve(`./src/templates/blog-post.js`),
-      context: { slug: edge.node.slug.current },
+      context: { slug: edge.node.slug.current, id: edge.node.id },
     })
   })
 
