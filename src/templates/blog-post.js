@@ -2,6 +2,7 @@ import React from "react"
 import Layout from "../components/layout"
 import { graphql } from "gatsby"
 import PortableText from "../components/portableText"
+import ReactMarkdown from "react-markdown"
 
 export default function BlogPost({ data }) {
   console.log(data.post)
@@ -11,10 +12,12 @@ export default function BlogPost({ data }) {
   return (
     <Layout>
       <h1>{post.title}</h1>
-      {post._rawBody && <PortableText blocks={post._rawBody} />}
+      {post.body && <ReactMarkdown source={post.body} />}
     </Layout>
   )
 }
+
+// _rawBody(resolveReferences: { maxDepth: 5 })
 
 export const query = graphql`
   query BlogPostTemplateQuery($id: String!) {
@@ -34,7 +37,7 @@ export const query = graphql`
         current
       }
       _rawExcerpt(resolveReferences: { maxDepth: 5 })
-      _rawBody(resolveReferences: { maxDepth: 5 })
+      body
       authors {
         _key
         author {
